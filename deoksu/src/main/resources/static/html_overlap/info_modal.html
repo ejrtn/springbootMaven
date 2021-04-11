@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div align="center" style="margin-top: 20px;" class="modal_content">
+		<input id="info_text_name" type="text" placeholder="이름" style="width: 250px; height: 40px; margin-right: 88px; margin-bottom: 10px;" readonly="readonly"><br>
+		<input id="info_text_id" type="text" placeholder="아이디" style="width: 250px; height: 40px; margin-right: 88px; margin-bottom: 10px;" readonly="readonly"><br>
+		<input id="info_text_ingpw" type="password" placeholder="현재 패스워드" style="width: 250px; height: 40px; margin-right: 88px; margin-bottom: 10px;"><br>
+		<input id="info_text_pw" type="password" placeholder="변경 패스워드" style="width: 250px; height: 40px; margin-right: 88px; margin-bottom: 10px;"><br>
+		<input id="info_text_pwc" type="password" placeholder="변경 패스워드" style="width: 250px; height: 40px; margin-right: 88px; margin-bottom: 10px;"><br>
+		<input id="info_text_email" type="email" placeholder="이메일" style="width: 250px; height: 40px; margin-bottom: 10px;">
+		<input type="button" value="다시보내기" style="height: 40px;"><br>
+		<input id="info_text_key" type="text" placeholder="인증번호" style="width: 250px; height: 40px; margin-right: 13px; margin-bottom: 10px;">
+		<input type="button" value="인증확인" style="height: 40px;"><br>
+		<input type="button" id="infochange" value="정보변경" onclick="info_change()">
+		<input type="button" id="modal_close_btn_info" value="창 닫기" onclick="modal_info_close()">
+    	<div class="modal_layer"></div>
+    </div>
+</body>
+</html>

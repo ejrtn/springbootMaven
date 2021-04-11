@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-#modal1 {
+#modal_join, #modal_idpw, #modal_info {
 display: none;
 position:absolute;
 width:100%;
@@ -9,13 +9,13 @@ z-index:9999;
 top: 100px;
 }
 
-#modal1 button {
+#modal_join button, #modal_idpw button, #modal_info button{
 display:inline-block;
 width:100px;
 margin-left:calc(100% - 100px - 10px);
 }
 
-#modal1 .modal_content {
+#modal_join .modal_content, #modal_idpw .modal_content, #modal_info .modal_content {
 width:370px;
 margin:100px auto;
 padding:20px 10px;
@@ -23,7 +23,7 @@ background:#fff;
 border:2px solid #666;
 }
 
-#modal1 .modal_layer {
+#modal_join .modal_layer, #modal_idpw .modal_layer, #modal_info .modal_layer {
 position:fixed;
 top:0;
 left:0;
@@ -31,4 +31,4 @@ width:100%;
 height:100%;
 background:rgba(0, 0, 0, 0.5);
 z-index:-1;
-}   
+}  

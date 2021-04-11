@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	 <div align="center" style="margin-top: 20px;" class="modal_content">
+		<input id="text_name" type="text" placeholder="이름" style="width: 250px; height: 40px; margin-right: 88px; margin-bottom: 10px;"><br>
+		<input id="text_id" type="text" placeholder="아이디" style="width: 250px; height: 40px; margin-right: 13px; margin-bottom: 10px;">
+		<input id="btn_id" type="button" value="중복확인" style="height: 40px;"  onclick="idcheck()"><br>
+		<input id="text_pw" type="password" placeholder="패스워드" style="width: 250px; height: 40px; margin-right: 88px; margin-bottom: 10px;"><br>
+		<input id="text_pwc" type="password" placeholder="패스워드" style="width: 250px; height: 40px; margin-right: 88px; margin-bottom: 10px;"><br>
+		<input id="text_email" type="email" placeholder="이메일" style="width: 250px; height: 40px; margin-bottom: 10px;">
+		<input type="button" value="인증보내기" style="height: 40px;" onclick="email()"><br>
+		<input id="text_key" type="text" placeholder="인증번호" style="width: 250px; height: 40px; margin-right: 13px; margin-bottom: 10px;">
+		<input type="button" value="인증확인" style="height: 40px;" onclick="keycheck()"><br>
+		<input type="button" id="joinok" value="회원가입" onclick="joinok()">
+		<input type="button" id="modal_close_btn_join" value="창 닫기" onclick="modal_join_close()">
+    	<div class="modal_layer"></div>
+    </div>   
+	
+	<input type="hidden" value="" id="key_result">
+</body>
+</html>

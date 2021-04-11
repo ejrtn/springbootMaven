@@ -1,6 +1,6 @@
 package com.example.demo.dto;
 
-public class UserDTO {
+public class UserDto {
 	private String name;
 	private String id;
 	private String pw;
