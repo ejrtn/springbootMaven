@@ -1,0 +1,57 @@
+package com.example.demo.controller;
+
+import java.io.UnsupportedEncodingException;
+import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.example.demo.service.SudokuService;
+import com.example.demo.utils.CookieUtils;
+import com.example.demo.utils.Numbergeneration;
+
+@Controller
+public class SudokuController {
+	
+	@Autowired
+	private SudokuService sudokuservice;
+
+	@RequestMapping(value = "Allreset", method = RequestMethod.POST, produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String Allreset(@RequestParam int count, HttpServletRequest request, HttpServletResponse response) {
+		
+		return sudokuservice.Allreset(count,request,response);
+	}
+	
+	@RequestMapping(value = "number_click", method = RequestMethod.POST, produces = "application/text; charset=utf8")
+	@ResponseBody
+	public void number_click(@RequestParam String pad, HttpServletRequest request, HttpServletResponse response) {
+		sudokuservice.number_click(pad, request, response);
+	}
+	@RequestMapping(value = "sudoku")
+	public String sudoku(Locale locale, Model model, HttpServletRequest request) {
+		try {
+			String number = cookieutils.getValue("text1", request);
+			String number_reset = cookieutils.getValue("text1_reset", request);
+			if (number!=null) {
+				model.addAttribute("open",number);
+				model.addAttribute("open_reset",number_reset);
+			}else {
+				model.addAttribute("open","000000000/000000000/000000000/000000000/000000000/000000000/000000000/000000000/000000000");
+				model.addAttribute("open_reset","000000000/000000000/000000000/000000000/000000000/000000000/000000000/000000000/000000000");
+			}
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "sudoku";
+	}
+}

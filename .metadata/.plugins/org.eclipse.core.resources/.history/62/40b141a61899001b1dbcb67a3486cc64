@@ -1,0 +1,13 @@
+package com.example.demo.service;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Service
+public class SpaceController {
+
+	@RequestMapping("space")
+	public String space() {
+		return "space";
+	}
+}

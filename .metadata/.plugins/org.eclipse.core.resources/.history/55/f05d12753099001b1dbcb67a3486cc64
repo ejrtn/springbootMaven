@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<canvas id=canvas width="1000" height="1000" style="border: 5px solid black; margin: 20px 0px 0px 20px;"></canvas>
+	<script>
+	var canvas = document.getElementById("canvas");
+	var ctx = canvas.getContext("2d");
+	ctx.beginPath();
+	
+// 	가로1
+	ctx.moveTo(470, 450);
+	ctx.lineTo(530, 450);
+	
+// 	가로2
+	ctx.moveTo(455, 480);
+	ctx.lineTo(515, 480);
+
+// 	가로3
+	ctx.moveTo(455, 510);
+	ctx.lineTo(515, 510);
+	
+// 	사선(/)1
+	ctx.moveTo(470, 450);
+	ctx.lineTo(455, 480);
+	
+// 	사선(/)2
+	ctx.moveTo(530, 450);
+	ctx.lineTo(515, 480);
+
+// 	사선(/)3
+	ctx.moveTo(530, 480);
+	ctx.lineTo(515, 510);
+	
+// 	세로1
+	ctx.moveTo(455, 480);
+	ctx.lineTo(455, 510);
+	
+// 	세로2
+	ctx.moveTo(515, 480);
+	ctx.lineTo(515, 510);
+
+// 	세로3
+	ctx.moveTo(530, 450);
+	ctx.lineTo(530, 480);
+	
+	
+	
+// // 	가로1
+// 	ctx.moveTo(470, 450-30);
+// 	ctx.lineTo(530, 450-30);
+	
+// 	가로2
+	ctx.moveTo(455, 480-30);
+	ctx.lineTo(515, 480-30);
+
+// 	가로3
+	ctx.moveTo(455, 510-30);
+	ctx.lineTo(515, 510-30);
+	
+// 	사선(/)1
+	ctx.moveTo(470, 450-30);
+	ctx.lineTo(455, 480-30);
+	
+// 	사선(/)2
+	ctx.moveTo(530, 450-30);
+	ctx.lineTo(515, 480-30);
+
+// 	사선(/)3
+	ctx.moveTo(530, 480-30);
+	ctx.lineTo(515, 510-30);
+	
+// 	세로1
+	ctx.moveTo(455, 480-30);
+	ctx.lineTo(455, 510-30);
+	
+// 	세로2
+	ctx.moveTo(515, 480-30);
+	ctx.lineTo(515, 510-30);
+
+// 	세로3
+	ctx.moveTo(530, 450-30);
+	ctx.lineTo(530, 480-30);
+
+	
+	
+	ctx.stroke();
+	</script>
+</body>
+</html>

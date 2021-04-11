@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+		#Progress_Loading {width: 300px; height: 300px; position: absolute; display: none; top: 144px;}
+        #modal {
+          display: none;
+          position:absolute;
+          width:100%;
+          height:100%;
+          z-index:9999;
+          top: 100px;
+        }
+        
+        #modal h2 {
+          margin:0;
+        }
+        #modal button {
+          display:inline-block;
+          width:100px;
+          margin-left:calc(100% - 100px - 10px);
+        }
+        
+        #modal .modal_content {
+          width:300px;
+          margin:100px auto;
+          padding:20px 10px;
+          background:#fff;
+          border:2px solid #666;
+        }
+        
+        #modal .modal_layer {
+          position:fixed;
+          top:0;
+          left:0;
+          width:100%;
+          height:100%;
+          background:rgba(0, 0, 0, 0.5);
+          z-index:-1;
+    	}   
+	</style>
+	<style type="text/css">
+		.main_th {border: 1px solid #00000061; width: 11.1%; height: 11.1%; font-size: 25px;}
+		.main_th:hover{border: 1px solid #00000061; background-color: #bbdefb; width: 11.1%; height: 11.1%; font-size: 25px;}
+		
+ 		.main_th_left {border: 1px solid #00000061; border-top-color: black; cursor:pointer; width: 11.1%; height: 11.1%; font-size: 25px;}
+ 		.main_th_left:hover{border: 1px solid #00000061; border-top-color: black; cursor:pointer; background-color: #bbdefb; width: 11%; height: 11%; font-size: 25px;} 
+ 		
+ 		.main_th_right {border: 1px solid #00000061; border-bottom-color: black; cursor:pointer; width: 11.1%; height: 11.1%; font-size: 25px;}
+ 		.main_th_right:hover{border: 1px solid #00000061; border-bottom-color: black; cursor:pointer; background-color: #bbdefb; width: 11%; height: 11%; font-size: 25px;} 
+ 		
+		.main_table {width: 400px; height: 400px; border-collapse: separate; border-spacing: 0px; border: 1px solid black; cursor:pointer;}
+		.sub1_table {border-collapse: separate; border-spacing: 0px; border: 1px solid black; width: 180px; height: 180px; text-align: center; font-size: 40px; margin-top: 20px; cursor:pointer;}
+		
+		.sub2_td {width: 11.1%; height: 11.1%;}
+		.sub2_table {border-collapse: separate; border-spacing: 0px; border: 1px solid black; width: 180px; height: 120px; font-size: 20px; text-align: center; margin-top: 20px; cursor:pointer;}
+	</style>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script type="text/javascript">
+		var Initial_value=[];
+		var table_ch=00;
+		$(function () {
+			document.getElementById("modal").style.display="block";
+			for(i=0;i<9;i++){
+				$(".main_table").append("<tr id='main_tr"+i+"'></tr>");
+				for(x=0;x<9;x++){
+					if(i==0 || i==3 || i==6){
+						$("#main_tr"+i).append("<th class='main_th_left' id='main_th"+i+x+"' onclick='table_click(\""+i+x+"\")'></th>");
+					}else if(i==2 || i==5 || i==8){
+						$("#main_tr"+i).append("<th class='main_th_right' id='main_th"+i+x+"' onclick='table_click(\""+i+x+"\")'></th>");
+					}else{
+						$("#main_tr"+i).append("<th class='main_th' sty id='main_th"+i+x+"' onclick='table_click(\""+i+x+"\")'></th>");
+					}
+					if(x==0 || x==3 || x==6){
+						$("#main_th"+i+x).css("border-left-color","black");
+					}
+					else if(x==2 || x==5 || x==8){
+						$("#main_th"+i+x).css("border-right-color","black");
+					}
+				}
+			}
+		})
+		$(function () {
+			if('${open}'!=""){
+				console.log()
+				var data='${open}'
+				var number=data.split("/");
+	        	var number2=[]
+	        	var data_reset='${open_reset}'
+				var number_reset=data_reset.split("/");
+	        	for(i=0;i<9;i++){
+	        		number2[i]=number[i].split("");
+	        		Initial_value[i]=number_reset[i].split("");
+	        	}
+	        	for(i=0;i<9;i++){
+	        		for(x=0;x<9;x++){
+	        			if(number2[i][x]!=0){
+	        				$("#main_th"+i+x).text(number2[i][x]);
+	        			}else{
+	        				$("#main_th"+i+x).text("");
+	        			}
+	        		}
+	        	}
+			}
+		})
+		function number_click(d) {
+			if(Initial_value[table_ch.split("")[0]][table_ch.split("")[1]]==0){
+				$("#main_th"+table_ch).text(d);
+				for(i=0;i<9;i++){
+					for(x=0;x<9;x++){
+						$("#main_th"+i+x).css("color","black");
+						if($("#main_th"+i+x).text()==$("#main_th"+table_ch).text() && $("#main_th"+table_ch).text()!=""){
+							$("#main_th"+i+x).css("background-color","#bbdefb");
+						}else{
+							$("#main_th"+i+x).css("background-color","#ffffff");
+						}
+					}
+				}
+				table_click(table_ch)
+				ch();
+				number_string();
+			}
+		}
+		function number_string() {
+			var arr="";
+			for(i=0;i<9;i++){
+				for(x=0;x<9;x++){
+					arr+=$("#main_th"+i+x).text();
+				}
+				arr+="/";
+			}
+			console.log(arr)
+			$.ajax({
+				url : "number_click",
+	            type : "POST",
+	            data : {pad:arr},
+	            success : function(data) {
+	            	
+	            },
+	            error : function() {
+	               	alert('문제 발생')
+				}
+			});
+		}
+		function table_click(d) {
+			table_ch=d;
+			for(i=0;i<9;i++){
+				for(x=0;x<9;x++){
+					$("#main_th"+i+x).css("background-color","#ffffff");
+				}
+			}
+			for(x=0;x<9;x++){
+				$("#main_th"+d.split("")[0]+x).css("background-color","#e2e7ed");
+				$("#main_th"+x+d.split("")[1]).css("background-color","#e2e7ed");
+			}
+			
+			if(d.split("")[0]<3 && d.split("")[1] <3){
+				for(i=0;i<3;i++){
+					for(x=0;x<3;x++){
+						$("#main_th"+i+x).css("background-color","#e2e7ed");
+					}
+				}
+			}else if(d.split("")[0]<3 && d.split("")[1] <6){
+				for(i=0;i<3;i++){
+					for(x=3;x<6;x++){
+						$("#main_th"+i+x).css("background-color","#e2e7ed");
+					}
+				}
+			}else if(d.split("")[0]<3 && d.split("")[1] <9){
+				for(i=0;i<3;i++){
+					for(x=6;x<9;x++){
+						$("#main_th"+i+x).css("background-color","#e2e7ed");
+					}
+				}
+			}
+			
+			else if(d.split("")[0]<6 && d.split("")[1] <3){
+				for(i=3;i<6;i++){
+					for(x=0;x<3;x++){
+						$("#main_th"+i+x).css("background-color","#e2e7ed");
+					}
+				}
+			}else if(d.split("")[0]<6 && d.split("")[1] <6){
+				for(i=3;i<6;i++){
+					for(x=3;x<6;x++){
+						$("#main_th"+i+x).css("background-color","#e2e7ed");
+					}
+				}
+			}else if(d.split("")[0]<6 && d.split("")[1] <9){
+				for(i=3;i<6;i++){
+					for(x=6;x<9;x++){
+						$("#main_th"+i+x).css("background-color","#e2e7ed");
+					}
+				}
+			}
+			
+			else if(d.split("")[0]<9 && d.split("")[1] <3){
+				for(i=6;i<9;i++){
+					for(x=0;x<3;x++){
+						$("#main_th"+i+x).css("background-color","#e2e7ed");
+					}
+				}
+			}else if(d.split("")[0]<9 && d.split("")[1] <6){
+				for(i=6;i<9;i++){
+					for(x=3;x<6;x++){
+						$("#main_th"+i+x).css("background-color","#e2e7ed");
+					}
+				}
+			}else if(d.split("")[0]<9 && d.split("")[1] <9){
+				for(i=6;i<9;i++){
+					for(x=6;x<9;x++){
+						$("#main_th"+i+x).css("background-color","#e2e7ed");
+					}
+				}
+			}
+			
+			$("#main_th"+d).css("background-color","#bbdefb");
+			for(i=0;i<9;i++){
+				for(x=0;x<9;x++){
+					if($("#main_th"+i+x).text()==$("#main_th"+d).text() && $("#main_th"+d).text()!=""){
+						$("#main_th"+i+x).css("background-color","#bbdefb");
+					}
+				}
+			}
+			
+			
+		}
+		
+		function ch() {
+			for(y=0;y<9;y++){
+				for(z=0;z<9;z++){
+					d=y+""+z;
+					if($("#main_th"+d).text()!=""){
+						for(x=0;x<9;x++){
+							m=y+""+x;
+							if($("#main_th"+d).text()==$("#main_th"+y+x).text() && d!=m){
+								$("#main_th"+d).css("color","red");
+								break;
+							}
+							n=x+""+z;
+							if($("#main_th"+d).text()==$("#main_th"+x+z).text() && d!=n){
+								$("#main_th"+d).css("color","red");
+								break;
+							}
+						}
+					
+						if(y<3 && z <3){
+							for(i=0;i<3;i++){
+								for(x=0;x<3;x++){
+									m=i+""+x;
+									if($("#main_th"+d).text()==$("#main_th"+i+x).text() && d!=m){
+										$("#main_th"+d).css("color","red");
+										break;
+									}
+								}
+							}
+						}else if(y<3 && z <6){
+							for(i=0;i<3;i++){
+								for(x=3;x<6;x++){
+									m=i+""+x;
+									if($("#main_th"+d).text()==$("#main_th"+i+x).text() && d!=m){
+										$("#main_th"+d).css("color","red");
+										break;
+									}
+								}
+							}
+						}else if(y<3 && z <9){
+							for(i=0;i<3;i++){
+								for(x=6;x<9;x++){
+									m=i+""+x;
+									if($("#main_th"+d).text()==$("#main_th"+i+x).text() && d!=m){
+										$("#main_th"+d).css("color","red");
+										break;
+									}
+								}
+							}
+						}
+						
+						else if(y<6 && z <3){
+							for(i=3;i<6;i++){
+								for(x=0;x<3;x++){
+									m=i+""+x;
+									if($("#main_th"+d).text()==$("#main_th"+i+x).text() && d!=m){
+										$("#main_th"+d).css("color","red");
+										break;
+									}
+								}
+							}
+						}else if(y<6 && z <6){
+							for(i=3;i<6;i++){
+								for(x=3;x<6;x++){
+									m=i+""+x;
+									if($("#main_th"+d).text()==$("#main_th"+i+x).text() && d!=m){
+										$("#main_th"+d).css("color","red");
+										break;
+									}
+								}
+							}
+						}else if(y<6 && z <9){
+							for(i=3;i<6;i++){
+								for(x=6;x<9;x++){
+									m=i+""+x;
+									if($("#main_th"+d).text()==$("#main_th"+i+x).text() && d!=m){
+										$("#main_th"+d).css("color","red");
+										break;
+									}
+								}
+							}
+						}
+						
+						else if(y<9 && z <3){
+							for(i=6;i<9;i++){
+								for(x=0;x<3;x++){
+									m=i+""+x;
+									if($("#main_th"+d).text()==$("#main_th"+i+x).text() && d!=m){
+										$("#main_th"+d).css("color","red");
+										break;
+									}
+								}
+							}
+						}else if(y<9 && z <6){
+							for(i=6;i<9;i++){
+								for(x=3;x<6;x++){
+									m=i+""+x;
+									if($("#main_th"+d).text()==$("#main_th"+i+x).text() && d!=m){
+										$("#main_th"+d).css("color","red");
+										break;
+									}
+								}
+							}
+						}else if(y<9 && z <9){
+							for(i=6;i<9;i++){
+								for(x=6;x<9;x++){
+									m=i+""+x;
+									if($("#main_th"+d).text()==$("#main_th"+i+x).text() && d!=m){
+										$("#main_th"+d).css("color","red");
+										break;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		function remove(){
+			if(Initial_value[table_ch.split("")[0]][table_ch.split("")[1]]==0){
+				$("#main_th"+table_ch).text("");
+				for(i=0;i<9;i++){
+					for(x=0;x<9;x++){
+						$("#main_th"+i+x).css("color","black");
+					}
+				}
+				ch();
+			}
+			number_string();
+		}
+		function reset(){
+			for(i=0;i<9;i++){
+        		for(x=0;x<9;x++){
+        			$("#main_th"+i+x).css("background-color","#ffffff");
+        			$("#main_th"+i+x).css("color","black");
+        			if(Initial_value[i][x]!=0){
+        				$("#main_th"+i+x).text(Initial_value[i][x]);
+        			}else{
+        				$("#main_th"+i+x).text("");
+        			}
+        		}
+        	}
+			number_string();
+		}
+		function ok(){
+			var left = $("#Welcome_Sudoku").css("width").split("px")[0]/2-150
+			$("#Progress_Loading").css("left",left)
+			
+			var a=$("#count").val().split("");
+			var c=1;
+			for(i=0;i<a.length;i++){
+				for(x=0;x<10;x++){
+					if(a[i]==x){
+						break;
+					}else if(x==9){
+						c=0;
+						break;
+					}
+				}
+				if(c==0){
+					break;
+				}
+			}
+			if(c==0){
+				alert("숫자가 아닌 다른 값이 들어가 있습니다.")
+			}else if(!(1<=$("#count").val() && $("#count").val()<=80)){
+				alert("숫자 범위값을 넘어갔습니다.\n비울 칸 갯수(1~80)")
+			}else if($("#count").val()==""){
+				alert("비울 칸 갯수 입력해주세요.\n비울 칸 갯수(1~80)")
+			}else{
+				$('#Progress_Loading').css("display","block"); //ajax실행시 로딩바를 보여준다.
+				$.ajax({
+					url : "Allreset",
+		            type : "POST",
+		            data : {count:$("#count").val()},
+		            success : function(data) {
+		            	console.log(data)
+		            	var number=data.split("/");
+		            	var number2=[]
+		            	for(i=0;i<9;i++){
+		            		number2[i]=number[i].split("");
+		            		Initial_value[i]=number[i].split("");
+		            	}
+		            	for(i=0;i<9;i++){
+		            		for(x=0;x<9;x++){
+		            			if(number2[i][x]!=0){
+		            				$("#main_th"+i+x).text(number2[i][x]);
+		            			}else{
+		            				$("#main_th"+i+x).text("");
+		            			}
+		            		}
+		            	}
+		            	$('#Progress_Loading').css("display","none"); //ajax실행시 로딩바를 보여준다.
+		            },
+		            error : function() {
+		            	$('#Progress_Loading').css("display","none"); //ajax실행시 로딩바를 보여준다.
+		               	alert('문제 발생')
+					}
+				});
+			}
+		}
+		function tip() {
+			document.getElementById("modal").style.display="block";
+		}
+		
+	</script>
+</head>
+<body>
+	<div align="center">
+		<table>
+			<tr>
+				<td>
+					<h1 align="center" style="font-size: 50px; width: 350px; height:66px;">Welcome YDS</h1>
+				</td>
+				<td>
+					<h1 align="center"  style="font-size: 50px; width: 400px; margin-left: 200px; margin-right: 200px;">당신의 선택은?</h1>
+				</td>
+				<td>
+					<input type="text" placeholder="아이디" style="height: 30px; width: 200px;">
+					<input type="text" placeholder="비밀번호" style="height: 30px; width: 200px;">
+					<input type="button" value="확인" style="height: 30px;">
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="Progress_Loading" align="center">
+		<!-- 로딩바 -->
+      	<img style="width: 300px; height: 300px;" src="images/main_img/Progress_Loading.gif"/>
+   	</div>
+	<div align="center" style="margin-top: 20px;">
+		<div style="display: flex; flex: row; width: 600px;">
+			<table class="main_table"></table>
+			<div style="margin-left: 20px; width: 200px;" align="center">
+				<div>
+					<input type="text" id="count" placeholder="비울 칸 갯수(1~80)" >
+				</div>
+				<div style="margin-top: 10px;">
+					<input type="button" value="게임시작" onclick="ok()"> 
+				</div>
+				<table class="sub1_table" border="1">
+					<tr><td onclick="number_click('1')">1</td><td onclick="number_click('2')">2</td><td onclick="number_click('3')">3</td></tr>
+					<tr><td onclick="number_click('4')">4</td><td onclick="number_click('5')">5</td><td onclick="number_click('6')">6</td></tr>
+					<tr><td onclick="number_click('7')">7</td><td onclick="number_click('8')">8</td><td onclick="number_click('9')">9</td></tr>
+				</table>
+				<table class="sub2_table" border="1">
+					<tr><td onclick="remove()" class="sub2_td">지우기</td><td onclick="reset()" class="sub2_td">초기화</td></tr>
+					<tr><td onclick="" class="sub2_td">???</td><td onclick="tip()" class="sub2_td">설명</td></tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="modal">
+	    <div class="modal_content">
+	        <h2>Sudoku 설명</h2>
+	        <p>맨 처음 아무것도 뜨지 않거나 또는<br> 기존에 했던것이 불러와 집니다.<br> 1. 비울 칸 갯수 입력<br> 2. 시작 버튼 클릭<br>3. 재밌게 문게풀기</p>
+	        <button type="button" id="modal_close_btn">창 닫기</button>
+	    </div>
+    	<div class="modal_layer"></div>
+	</div>
+	<script>
+	    document.getElementById("modal_close_btn").onclick = function() {
+	        document.getElementById("modal").style.display="none";
+	    }   
+	</script>
+</body>
+</html>

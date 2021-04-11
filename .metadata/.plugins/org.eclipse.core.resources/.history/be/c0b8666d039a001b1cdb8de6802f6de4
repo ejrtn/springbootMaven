@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+function chkPW(){
+
+ 	var pw = $("#password").val();
+ 	var num = pw.search(/[0-9]/g);
+ 	var eng = pw.search(/[a-z]/ig);
+ 	var spe = pw.search(/[`~!@@#$%^&*|₩₩₩'₩";:₩/?]/gi);
+
+ 	if(pw.length < 8 || pw.length > 20){
+  		alert("8자리 ~ 20자리 이내로 입력해주세요.");
+  		return false;
+ 	}else if(pw.search(/\s/) != -1){
+  		alert("비밀번호는 공백 없이 입력해주세요.");
+  		return false;
+ 	}else if(num < 0 || eng < 0 || spe < 0 ){
+  		alert("영문,숫자, 특수문자를 혼합하여 입력해주세요.");
+  		return false;
+ 	}else {
+    	return true;
+	}
+
+}
+</script>
+</head>
+<body>
+	<div align="center">
+		<table>
+			<tr>
+				<td>
+					<h1 align="center" style="font-size: 50px; width: 350px; height:66px;">Welcome YDS</h1>
+				</td>
+				<td>
+					<h1 align="center"  style="font-size: 50px; width: 400px; margin-left: 200px; margin-right: 200px;">당신의 선택은?</h1>
+				</td>
+				<td>
+					<input type="text" placeholder="아이디" style="height: 30px; width: 200px;">
+					<input type="password" placeholder="비밀번호" style="height: 30px; width: 200px;">
+					<input type="button" value="확인" style="height: 30px;">
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div align="center" style="margin-top: 20px;">
+		<input type="text" placeholder="아이디" style="width: 250px; height: 40px; margin-right: 13px; margin-bottom: 10px;">
+		<input type="button" value="중복확인"><br>
+		<input type="password" placeholder="패스워드" style="width: 250px; height: 40px; margin-right: 88px; margin-bottom: 10px;"><br>
+		<input type="email" placeholder="이메일" style="width: 250px; height: 40px; margin-bottom: 10px;">
+		<input type="button" value="인증보내기"><br>
+		<input type="text" placeholder="인증번호" style="width: 250px; height: 40px; margin-right: 13px; margin-bottom: 10px;">
+		<input type="button" value="인증확인">
+	</div>
+</body>
+</html>

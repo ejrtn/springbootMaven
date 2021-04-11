@@ -1,0 +1,19 @@
+package com.example.demo.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class MemorizationController {
+	
+	@RequestMapping("memorization")
+	public String memorization() {
+		return "memorization";
+	}
+	
+	@RequestMapping(value = "bring", method = RequestMethod.POST, produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String memorization_bring(@RequestParam int cnt, @RequestParam int x, HttpServletRequest request, HttpServletResponse response) {
+		return memorization.Memorization_ran(x, cnt);
+	}
+}

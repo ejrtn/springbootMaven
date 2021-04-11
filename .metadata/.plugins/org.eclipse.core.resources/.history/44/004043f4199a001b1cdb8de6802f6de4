@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	.Arithmetic {width: 55px; height: 55px; margin:50px 50px 13px 50px;}
+	.number {font-size: 100px;}
+	.Arithmetic_button {width: 70px; height: 70px; cursor: pointer;}
+	.timer {width: 100px; height: 50px; margin-top: 30px; font-size: 20px;}
+	.result_text {height: 25px; margin-top: 10px; margin-bottom: 10px;}
+	.result_button {height: 30px; margin-top: 10px; margin-bottom: 10px;}
+</style>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
+	var Arithmetic_type ='plus'
+	var ok_cnt=0;
+	var cnt=1
+	var sec=10
+	function number_in() {
+		$.ajax({
+			url: "number",
+			type: 'POST',
+			data : {'cnt':cnt},
+			success: function(data){
+				number = data.split(",")
+				$("#number1").text(number[0])
+				$("#number2").text(number[1])
+			},
+			error: function(error){
+				
+			}
+		});
+	}
+	function Arithmetic(x) {
+		Arithmetic_type=x
+		if(x=='plus'){
+			$("#Arithmetic").attr("src","images/"+x+".png")
+		}else if(x=='minus'){
+			$("#Arithmetic").attr("src","images/"+x+".png")
+		}else{
+			$("#Arithmetic").attr("src","images/"+x+".png")
+		}
+	}
+	function result() {
+		num1=Number($("#number1").text())
+		num2=Number($("#number2").text())
+		var result=0
+		if(Arithmetic_type=='plus'){
+			result=num1+num2
+		}else if(Arithmetic_type=='minus'){
+			result=num1-num2
+		}else{
+			result=num1*num2
+		}
+		if(result==$("#result").val()){
+			$("#all_cnt").text(""+(Number($("#all_cnt").text())+1))
+			sec=10;
+			ok_cnt++;
+			if(ok_cnt==9){
+				cnt++;
+				ok_cnt=0
+			}
+			number_in();
+		}
+		$("#result").val("")
+	}
+	function timer() {
+		number_in();
+		$("#time").css("color","red")
+		$("#time").val(sec+"초")
+		$("#result_btn").removeAttr("disabled")
+		$("#result").removeAttr("disabled")
+		var x = setInterval(function() {
+			sec--;
+			$("#time").val(sec+"초")
+			if(sec<0){
+				clearInterval(x)
+				$("#time").css("color","black")
+				$("#time").val("종료")
+				$("#result_btn").attr("disabled","disabled")
+				$("#result").attr("disabled","disabled")
+				var zz=5
+				var xx = setInterval(function() {
+					zz--;
+					if(zz<0){
+						clearInterval(xx)
+						sec=10;
+						$("#time").val("시작")
+					}
+				},1000);
+			}
+		},1000);
+		
+	}
+	function enterkey() {
+        if (window.event.keyCode == 13) {
+        	result();
+        }
+	}
+</script>
+</head>
+<body>
+	<div align="center">
+		<table>
+			<tr>
+				<td style="width: 350px;">
+					<h1 align="center" style="font-size: 50px; width: 350px; height:66px; cursor: pointer;" onclick="location.href='/'">Welcome YDS</h1>
+				</td>
+				<td style="padding-left: 200px; padding-right: 100px; width: 350px;">
+					<label style="font-size: 25px; cursor: pointer; margin-right: 30px;" onclick="location.href='/'">메인</label>
+					<label style="font-size: 25px; cursor: pointer; margin-right: 30px;" onclick="location.href='sudoku'">추리</label>
+					<label style="font-size: 25px; cursor: pointer; margin-right: 30px; background-color: #9e9e9e8c;" onclick="location.href='math'">암산</label>
+					<label style="font-size: 25px; cursor: pointer; margin-right: 30px;" onclick="location.href='memorization'">기억</label>
+					<label style="font-size: 25px; cursor: pointer; margin-right: 30px;" onclick="location.href='space'">공간</label>
+				</td>
+				<td style="padding-left: 50px;">
+					<input type="text" placeholder="아이디" style="height: 30px; width: 180px;">
+					<input type="password" placeholder="비밀번호" style="height: 30px; width: 180px;">
+					<input type="button" value="확인" style="height: 30px;">
+				</td>
+				<td style="padding-left: 50px;">
+					<img src="images/main_img/menu.png" style="width: 50px; height: 50px; margin-left: 10px;">
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div align="center" style="margin-top: 20px;">
+		<h1 align="center"  style="font-size: 50px; width: 400px; margin-left: 200px; margin-right: 200px;">당신의 선택은?</h1>
+		<div align="center">
+			<img class="Arithmetic_button" src="images/main_img/plus.png" onclick="Arithmetic('plus')" alt="">
+			<img class="Arithmetic_button" src="images/main_img/minus.png" onclick="Arithmetic('minus')">
+			<img class="Arithmetic_button" src="images/main_img/multiplication.png" onclick="Arithmetic('multiplication')">
+		</div>
+		<div align="center" >
+			<input type="button" class="timer" value="시작" id="time" onclick="timer()">
+		</div>
+		<div align="center">
+			<b class="number" id='number1'>?</b> 
+			<img src="images/plus.png" class="Arithmetic" id="Arithmetic"> 
+			<b class="number" id='number2'>?</b>
+		</div>
+		<div align="center"> 
+			<input type='text' class='result_text' placeholder="정답" id='result' disabled="disabled" onkeyup="enterkey()">
+			<input type="button" value='확인' onclick='result()'  class='result_button' disabled="disabled" id="result_btn">
+			<label>맞춘 갯수 : </label><label id='all_cnt'>0</label>
+		</div>
+	</div>
+	
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+</head>
+<body>
+	<canvas id=canvas width="1000" height="1000" style="border: 5px solid black; margin: 20px 0px 0px 20px;"></canvas>
+	<script>
+	var s = [470, 450, 530, 450, 455, 480, 515, 480, 455, 510, 515, 510, 470, 450, 455, 480, 
+		530, 450, 515, 480, 530, 480, 515, 510, 455, 480, 455, 510, 515, 480, 515, 510, 530, 450, 530, 480];
+	var c = s;
+	var sum = [];
+	function square(){
+//	 	가로1
+// 		ctx.moveTo(c[0], c[1]);
+// 		ctx.lineTo(c[2], c[3]);
+//		가로2
+// 		ctx.moveTo(c[4], c[5]);
+// 		ctx.lineTo(c[6], c[7]);
+//		가로3
+// 		ctx.moveTo(c[8], c[9]);
+// 		ctx.lineTo(c[10], c[11]);
+//		사선(/)1
+// 		ctx.moveTo(c[12], c[13]);
+// 		ctx.lineTo(c[14], c[15]);
+//		사선(/)2
+// 		ctx.moveTo(c[16], c[17]);
+// 		ctx.lineTo(c[18], c[19]);
+//		사선(/)3
+// 		ctx.moveTo(c[20], c[21]);
+// 		ctx.lineTo(c[22], c[23]);
+//		세로1
+// 		ctx.moveTo(c[24], c[25]);
+// 		ctx.lineTo(c[26], c[27]);
+//		세로2
+// 		ctx.moveTo(c[28], c[29]);
+// 		ctx.lineTo(c[30], c[31]);
+//	 	세로3
+// 	 	ctx.moveTo(c[32], c[33]);
+// 	 	ctx.lineTo(c[34], c[35]);
+		for(i=0;i<36;i++){
+			ctx.moveTo(c[i], c[i+1]);
+			ctx.lineTo(c[i+2], c[i+3]);
+			i+=3
+		}
+	}
+
+//	오른쪽
+	function right(){
+		for(i=0;i<36;i++){
+			if(!(i==16 || i==24)){
+				console.log(i)
+				ctx.moveTo(c[i]+60, c[i+1]);
+				ctx.lineTo(c[i+2]+60, c[i+3]);
+			}
+			i+=3
+		}
+	}
+
+//	왼쪽
+	function left(){
+		for(i=0;i<36;i++){
+			if(!(i==16 || i==20 || i==28 || i==32)){
+				console.log(i)
+				ctx.moveTo(c[i]-60, c[i+1]);
+				ctx.lineTo(c[i+2]-60, c[i+3]);
+			}
+			i+=3
+		}
+	}
+
+//	북쪽
+	function up(){
+		for(i=0;i<36;i++){
+			if(!(i==4 || i==8 || i==24 || i==28)){
+				console.log(i)
+				ctx.moveTo(c[i]+15, c[i+1]-30);
+				ctx.lineTo(c[i+2]+15, c[i+3]-30);
+			}
+			i+=3
+		}
+	}
+
+// 	위에
+	function uptop(){
+		for(i=0;i<36;i++){
+			if(!(i==8)){
+				ctx.moveTo(c[i], c[i+1]-30);
+				ctx.lineTo(c[i+2], c[i+3]-30);
+			}
+			i+=3
+		}
+	}
+	
+	var canvas = document.getElementById("canvas");
+	var ctx = canvas.getContext("2d");
+	ctx.beginPath();
+	square();
+	uptop();
+// 	up();
+// 	left();
+// 	right();
+	
+	ctx.stroke();
+	</script>
+</body>
+</html>
