@@ -40,20 +40,19 @@ public class SudokuService {
 			e.printStackTrace();
 		}
 	}
-	public void start(Locale locale, Model model, HttpServletRequest request) {
+	public String start(HttpServletRequest request) {
 		try {
 			String number = cookieutils.getValue("text1", request);
-			String number_reset = cookieutils.getValue("text1_reset", request);
+			cookieutils.getValue("text1_reset", request);
 			if (number!=null) {
-				model.addAttribute("open",number);
-				model.addAttribute("open_reset",number_reset);
+				return number;
 			}else {
-				model.addAttribute("open","000000000/000000000/000000000/000000000/000000000/000000000/000000000/000000000/000000000");
-				model.addAttribute("open_reset","000000000/000000000/000000000/000000000/000000000/000000000/000000000/000000000/000000000");
+				return "000000000/000000000/000000000/000000000/000000000/000000000/000000000/000000000/000000000";
 			}
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return null;
 	}
 }

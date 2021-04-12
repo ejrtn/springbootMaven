@@ -42,13 +42,7 @@ $(function(){
 	}
 	function Arithmetic(x) {
 		Arithmetic_type=x
-		if(x=='plus'){
-			$("#Arithmetic").attr("src","images/"+x+".png")
-		}else if(x=='minus'){
-			$("#Arithmetic").attr("src","images/"+x+".png")
-		}else{
-			$("#Arithmetic").attr("src","images/"+x+".png")
-		}
+		$("#Arithmetic").attr("src","images/main_img/"+x+".png")
 	}
 	function result() {
 		num1=Number($("#number1").text())
@@ -123,7 +117,7 @@ $(function(){
 		</div>
 		<div align="center">
 			<b class="number" id='number1'>?</b> 
-			<img src="images/plus.png" class="Arithmetic" id="Arithmetic"> 
+			<img src="images/main_img/plus.png" class="Arithmetic" id="Arithmetic"> 
 			<b class="number" id='number2'>?</b>
 		</div>
 		<div align="center"> 
@@ -134,11 +128,7 @@ $(function(){
 	</div>
 	
 	
-	<div id="modal_join">
-	</div>
-	<div id="modal_idpw">
-	</div>
-	<div id="modal_info">
+	<div id="user_modal">
 	</div>
 </body>
 </html>

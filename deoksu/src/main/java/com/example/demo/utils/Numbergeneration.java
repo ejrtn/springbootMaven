@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Numbergeneration {
-	ArrayList<Integer> arrlist = new ArrayList<Integer>();
-	static int[] arr;
-	int s=0;
-	public Numbergeneration() {
-		arr=new int[81];
+	
+	public String SudokuPrint(int count) {
+		int[] arr = new int[81];
+		int s=0;
+		ArrayList<Integer> arrlist = new ArrayList<Integer>();
 		Random random= new Random();
 		for(int i=0;i<81;i++) {
 			
@@ -21,7 +21,7 @@ public class Numbergeneration {
 			}
 			while(true) {
 				int num = random.nextInt(arrlist.size());
-				if(line_y(i,num)==1) {
+				if(line_y(i,num,arr,arrlist)==1) {
 					arr[i]=arrlist.get(num);
 					arrlist.remove(num);
 					break;
@@ -38,11 +38,9 @@ public class Numbergeneration {
 				}
 			}
 		}
-	}
-	public String SudokuPrint(int count) {
-		String s="";
+		
+		String ss="";
 		ArrayList<Integer> arrayarr = new ArrayList<Integer>();
-		Random random = new Random();
 		for(int i=0;i<81;i++) {
 			arrayarr.add(i);
 		}
@@ -52,9 +50,9 @@ public class Numbergeneration {
 			arrayarr.remove(z);
 		}
 		for(int i=0;i<81;i++) {
-			s+=arr[i];
+			ss+=arr[i];
 			if(i%9==8) {
-				s+="/";
+				ss+="/";
 			}
 			
 //			System.out.print(arr[i]+" ");
@@ -62,19 +60,19 @@ public class Numbergeneration {
 //				System.out.println();
 //			}
 		}
-		return s;
+		return ss;
 	}
-	public int line_y(int i,int x) {
+	public int line_y(int i,int x,int[] arr, ArrayList<Integer> arrlist) {
 		int num=x;
 		for(int p=0;p<9;p++) {
 			if(arr[(p*9)+(i%9)]==arrlist.get(num) && (p*9)+(i%9)!=i) {
 				return 0;
 			}		
 		}
-		return line_a(i,x);
+		return line_a(i,x,arr,arrlist);
 	}
 	
-	public int line_a(int i,int x) {
+	public int line_a(int i,int x,int[] arr, ArrayList<Integer> arrlist) {
 		int num=x;
 		if(i==0 || i==1 || i==2 || i==9 || i==10 || i==11 || i==18 || i==19 || i==20) {
 			for(int p=0;p<81;p++) {

@@ -69,9 +69,14 @@
 	</script>
 	<script type="text/javascript">
 	
-	
-		var Initial_value=[];
-		var table_ch=00;
+		var number;
+		var number2;
+		var data_reset;
+		var number_reset;
+		var Initial_value=[];		// 초기값
+		var table_ch=00;			// 
+		
+// 		36칸 만들기
 		$(function () {
 			document.getElementById("modal").style.display="block";
 			for(i=0;i<9;i++){
@@ -93,28 +98,38 @@
 				}
 			}
 		})
+		
+
+// 		페이지가 열리고 기존에 하던것이 있으면 하던 값이 이어서 나오고 그렇지 않으면 비어있는 칸이 나옴
 		$(function () {
-			if('${open}'!=""){
-				var data='${open}';
-				var number=data.split("/");
-	        	var number2=[]
-	        	var data_reset='${open_reset}'
-				var number_reset=data_reset.split("/");
-	        	for(i=0;i<9;i++){
-	        		number2[i]=number[i].split("");
-	        		Initial_value[i]=number_reset[i].split("");
-	        	}
-	        	for(i=0;i<9;i++){
-	        		for(x=0;x<9;x++){
-	        			if(number2[i][x]!=0){
-	        				$("#main_th"+i+x).text(number2[i][x]);
-	        			}else{
-	        				$("#main_th"+i+x).text("");
-	        			}
-	        		}
-	        	}
-			}
+			$.ajax({
+				url : "start",
+	            type : "POST",
+	            success : function(data) {
+	            	var number=data.split("/");
+		        	var number2=[]
+		        	var data_reset=data;
+					var number_reset=data_reset.split("/");
+		        	for(i=0;i<9;i++){
+		        		number2.push(number[i].split(""));
+		        		Initial_value.push(number_reset[i].split(""));
+		        	}
+		        	for(i=0;i<9;i++){
+		        		for(x=0;x<9;x++){
+		        			if(number2[i][x]!=0){
+		        				$("#main_th"+i+x).text(number2[i][x]);
+		        			}else{
+		        				$("#main_th"+i+x).text("");
+		        			}
+		        		}
+		        	}
+	            },
+	            error : function() {
+				}
+			});
 		})
+		
+// 		숫자 클릭시 지정 칸에 입력
 		function number_click(d) {
 			if(Initial_value[table_ch.split("")[0]][table_ch.split("")[1]]==0){
 				$("#main_th"+table_ch).text(d);
@@ -133,6 +148,8 @@
 				number_string();
 			}
 		}
+		
+// 		숫자 클릭시 cookie값 변경
 		function number_string() {
 			var arr="";
 			for(i=0;i<9;i++){
@@ -141,7 +158,7 @@
 				}
 				arr+="/";
 			}
-			console.log(arr)
+// 			console.log(arr)
 			$.ajax({
 				url : "number_click",
 	            type : "POST",
@@ -154,6 +171,8 @@
 				}
 			});
 		}
+		
+// 		테이블 임의 칸 클릭시 css 변환
 		function table_click(d) {
 			table_ch=d;
 			for(i=0;i<9;i++){
@@ -238,6 +257,8 @@
 			
 		}
 		
+		
+// 		숫자 클릭하면 중복값 있는지 확인 후 있으면 빨강색으로 글씨로 변경
 		function ch() {
 			for(y=0;y<9;y++){
 				for(z=0;z<9;z++){
@@ -356,6 +377,7 @@
 			}
 		}
 		
+// 		삭제
 		function remove(){
 			if(Initial_value[table_ch.split("")[0]][table_ch.split("")[1]]==0){
 				$("#main_th"+table_ch).text("");
@@ -368,6 +390,8 @@
 			}
 			number_string();
 		}
+		
+// 		초기화
 		function reset(){
 			for(i=0;i<9;i++){
         		for(x=0;x<9;x++){
@@ -382,6 +406,8 @@
         	}
 			number_string();
 		}
+		
+// 		게임시작 버튼
 		function ok(){
 			var left = $("#Welcome_Sudoku").css("width").split("px")[0]/2-150
 			$("#Progress_Loading").css("left",left)
@@ -414,7 +440,7 @@
 		            type : "POST",
 		            data : {count:$("#count").val()},
 		            success : function(data) {
-		            	console.log(data)
+// 		            	console.log(data)
 		            	var number=data.split("/");
 		            	var number2=[]
 		            	for(i=0;i<9;i++){
@@ -448,7 +474,7 @@
 		<!-- 로딩바 -->
       	<img style="width: 300px; height: 300px;" src="images/main_img/Progress_Loading.gif"/>
    	</div>
-	<div align="center" style="margin-top: 20px;">
+	<div align="center" style="margin-top: 20px;" id="Welcome_Sudoku">
 		<h1 align="center"  style="font-size: 40px;">추리 잘 하니? 감은?</h1>
 		<div style="display: flex; flex: row; width: 600px;">
 			<table class="main_table"></table>
