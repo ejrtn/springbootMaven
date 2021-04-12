@@ -68,6 +68,16 @@ public class MainController {
 	@RequestMapping(value = "email", method = RequestMethod.POST, produces = "application/text; charset=utf8")
 	@ResponseBody
 	public String email(@RequestParam String email, HttpServletRequest request, HttpServletResponse response) {
-		return userService.email(email);
+		return userService.email(email,"key");
+	}
+	
+	@RequestMapping(value = "find", method = RequestMethod.POST, produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String find(UserDto dto, @RequestParam String type, HttpServletRequest request, HttpServletResponse response) {
+		if(type.equals("id")) {
+			return userService.id_find(dto);
+		}else {
+			return userService.pw_find(dto);
+		}
 	}
 }

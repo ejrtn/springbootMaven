@@ -25,6 +25,15 @@ public class UserDao {
 		sqlSessionTemplate.insert(MAPPER_NM+".setUser",dto);
 	}
 	public void updateUser(UserDto dto) {
-		sqlSessionTemplate.insert(MAPPER_NM+".updateUser",dto);
+		sqlSessionTemplate.update(MAPPER_NM+".updateUser",dto);
+	}
+	public List<UserDto> id_find(UserDto dto){
+		return sqlSessionTemplate.selectList(MAPPER_NM+".id_find",dto);
+	}
+	public List<UserDto> pw_find(UserDto dto){
+		return sqlSessionTemplate.selectList(MAPPER_NM+".pw_find",dto);
+	}
+	public void pwupdate(UserDto dto) {
+		sqlSessionTemplate.update(MAPPER_NM+".pwupdate",dto);
 	}
 }

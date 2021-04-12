@@ -13,4 +13,14 @@
 	<update id="updateUser" parameterType="com.example.demo.dto.UserDto">
 		update users set pw=#{pw}, email=#{email}
 	</update>
+	
+	<select id="id_find" parameterType="com.example.demo.dto.UserDto" resultType="com.example.demo.dto.UserDto">
+		select * from users where email=#{email} and name=#{name}
+	</select>
+	<select id="pw_find" parameterType="com.example.demo.dto.UserDto" resultType="com.example.demo.dto.UserDto">
+		select * from users where id=#{id} and name=#{name} and email=#{email}
+	</select>
+	<update id="pwupdate" parameterType="com.example.demo.dto.UserDto">
+		update users set pw=#{pw} where id=#{id}
+	</update>
 </mapper>

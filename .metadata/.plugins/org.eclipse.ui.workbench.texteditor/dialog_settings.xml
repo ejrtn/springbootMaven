@@ -6,8 +6,17 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value=""/>
+		<item key="selection" value="getUserInfo"/>
 		<list key="findhistory">
+			<item value="getUserInfo"/>
+			<item value="keycheck"/>
+			<item value="key_result"/>
+			<item value="email()"/>
+			<item value="email"/>
+			<item value="info_change"/>
+			<item value="infoclick"/>
+			<item value="modal_idpw"/>
+			<item value="login"/>
 			<item value="&#x09;&#x09;"/>
 			<item value="        "/>
 			<item value="          "/>

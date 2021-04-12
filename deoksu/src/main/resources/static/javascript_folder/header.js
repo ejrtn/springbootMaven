@@ -23,21 +23,23 @@ function info(a){
 		$("#info").css("background-color","");
 }
 
-// 회원가입 클릭시 모달 띄우는 함수
-function joinclick(){
-	document.getElementById("modal_join").style.display="block";
+// 	모달창 띄우는 함수
+function modal_open(a){
+//	a변수의 값은 html_overlap의 폴더 안의 파일 중 어떤 값인지 분류하는 변수
+	$("#user_modal").load("html_overlap/"+a+"_modal.html")
+	document.getElementById("user_modal").style.display="block";
 }
 
-// ID$PW찾기 클릭시 모달 띄우는 함수
-function idpwclick(){
-	document.getElementById("modal_idpw").style.display="block";
+//	모달창 닫기 버튼
+function modal_close(){
+	$("#user_modal").css("display","none");
 }
 
-// 내정보 클릭시 모달 띄우는 함수
-function infoclick(){
-	document.getElementById("modal_info").style.display="block";
-	myinfo();
+//	모달 내용 바꾸기
+function modal_change(a){
+	$("#user_modal").load("html_overlap/"+a+"_modal.html")
 }
+
 
 // 패스워드 8자이상이고, 대문자, 소문자, 특수문자 숫자 포함 확인 함수
 function chkPW(pw){
@@ -53,31 +55,9 @@ function chkPW(pw){
 $(function(){
 //  해더 html 불러오기
 	$("#header").load("html_overlap/header.html")
-
-//  회원가입 모달 불러오기
-	$("#modal_join").load("html_overlap/join_modal.html")
-
-//  내정보 모달 불러오기
-	$("#modal_info").load("html_overlap/info_modal.html")	
-
-//  ID&PW 찾기 모달 불러오기
-	$("#modal_idpw").load("html_overlap/idpw_modal.html")	
 })
 
-//	회원가입 모달창 닫기 버튼
-function modal_join_close(){
-	$("#modal_join").css("display","none");
-}
 
-// ID&PW찾기 모달창 닫기 버튼
-function modal_idpw_close(){
-	$("#modal_idpw").css("display","none");
-}
-
-// 내정보 모달창 닫기 버튼
-function modal_info_close(){
-	$("#modal_info").css("display","none");
-}
 
 // ID 중복 확인
 function idcheck(){
@@ -121,7 +101,7 @@ function joinok(){
 						data: {"name":name,"id":id,"pw":pw,"email":email},
 						success: function (data) {
 //							모달창 닫기
-							document.getElementById("modal_close_btn_join").click();
+							modal_close('join');
 						},
 						error: function (error) {
 						    console.error(error);
@@ -151,6 +131,7 @@ function myinfo(){
 			$("#info_text_name").val(s[0]);		// 이름
 			$("#info_text_id").val(s[1]);		// ID
 			$("#info_text_email").val(s[2]);	// 이메일
+			$("#key_result").val("")
 		},
 		error: function (error) {
 			console.error(error);
@@ -243,5 +224,39 @@ function email(){
 function keycheck(){
 	if($("#key_result").val()==$("#text_key").val()){
 		$("#key_result").val("통과")
+	}else{
+		console.log($("#key_result").val());
 	}
 }
+
+function find(a){
+	var data;
+	var eamil;
+	var name;
+	var id;
+	if(a=='id'){
+		name = $("#id_text_name").val();
+		email = $("#id_text_email").val();
+		data = {"name":name,"email":email,"type":a}
+	}else{
+		name = $("#pw_text_name").val();
+		id = $("#pw_text_name").val();
+		email = $("#pw_text_email").val();
+		data = {"name":name,"id":id,"email":email,"type":a}
+	}
+	$.ajax({
+		url: "find",
+		type: 'POST',
+		data: data,
+		success: function (data) {
+			if(a=="id")
+				alert("id : "+data)
+			else
+				alert(data)
+		},
+		error: function (error) {
+			console.error(error);
+		}
+	});
+}
+

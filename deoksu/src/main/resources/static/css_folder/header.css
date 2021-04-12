@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-#modal_join, #modal_idpw, #modal_info {
+#user_modal {
 display: none;
 position:absolute;
 width:100%;
@@ -9,13 +9,13 @@ z-index:9999;
 top: 100px;
 }
 
-#modal_join button, #modal_idpw button, #modal_info button{
+#user_modal button {
 display:inline-block;
 width:100px;
 margin-left:calc(100% - 100px - 10px);
 }
 
-#modal_join .modal_content, #modal_idpw .modal_content, #modal_info .modal_content {
+#user_modal .modal_content {
 width:370px;
 margin:100px auto;
 padding:20px 10px;
@@ -23,7 +23,7 @@ background:#fff;
 border:2px solid #666;
 }
 
-#modal_join .modal_layer, #modal_idpw .modal_layer, #modal_info .modal_layer {
+#user_modal .modal_layer {
 position:fixed;
 top:0;
 left:0;

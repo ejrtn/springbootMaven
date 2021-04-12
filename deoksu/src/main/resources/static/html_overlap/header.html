@@ -25,9 +25,9 @@
 				<input id="logout_btn" type="button" value="로그아웃" style="margin-left: 20px; display: none;" onclick="logout()">
 			</td>
 			<td style="padding-left: 50px; width: 100px;" align="center">
-				<label onmouseover="join(1)" onmouseout="join(2)" id="join" style="cursor: pointer;" onclick="joinclick()">회원가입</label><br>
-				<label onmouseover="idpw(1)" onmouseout="idpw(2)" id="idpw" style="cursor: pointer;" onclick="idpwclick()">ID&PW찾기</label><br>
-				<label onmouseover="info(1)" onmouseout="info(2)" id="info" style="cursor: pointer; display: none;" onclick="infoclick()">내정보</label><br>
+				<label onmouseover="join(1)" onmouseout="join(2)" id="join" style="cursor: pointer;" onclick="modal_open('join')">회원가입</label><br>
+				<label onmouseover="idpw(1)" onmouseout="idpw(2)" id="idpw" style="cursor: pointer;" onclick="modal_open('idpw')">ID&PW찾기</label><br>
+				<label onmouseover="info(1)" onmouseout="info(2)" id="info" style="cursor: pointer; display: none;" onclick="modal_open('info')">내정보</label><br>
 			</td>
 		</tr>
 	</table>
