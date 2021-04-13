@@ -61,7 +61,7 @@ public class MainController {
 	
 	@RequestMapping(value = "myinfochange", method = RequestMethod.POST, produces = "application/text; charset=utf8")
 	@ResponseBody
-	public String myinfochange(UserDto dto,@RequestParam String repw, HttpServletRequest request, HttpServletResponse response,HttpSession session) {
+	public String myinfochange(UserDto dto,@RequestParam String repw, HttpServletRequest request, HttpServletResponse response) {
 		return userService.updateUser(dto,repw);
 	}
 	

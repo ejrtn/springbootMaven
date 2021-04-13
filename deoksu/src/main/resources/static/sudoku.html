@@ -106,7 +106,8 @@
 				url : "start",
 	            type : "POST",
 	            success : function(data) {
-	            	var number=data.split("/");
+// 	            	data 형식 : 000000000/000000000/000000000/000000000/000000000/000000000/000000000/000000000/000000000
+	            	var number=data.split("/");				
 		        	var number2=[]
 		        	var data_reset=data;
 					var number_reset=data_reset.split("/");

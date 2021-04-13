@@ -13,7 +13,7 @@ public class UserDao {
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	
-	private static final String MAPPER_NM = "com.example.demo.mapper";
+	private static final String MAPPER_NM = "com.example.demo.mapper.user";
 
 	public List<UserDto> getUserInfo(String id) {
         return sqlSessionTemplate.selectList(MAPPER_NM+".getUserInfo",id);

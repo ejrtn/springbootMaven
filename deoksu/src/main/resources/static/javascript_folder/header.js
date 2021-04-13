@@ -176,9 +176,11 @@ function login(){
 		type: 'POST',
 		data: {"id":id,"pw":pw},
 		success: function (data) {
+			
 			if(data==""){
 				alert("");
 			}else{
+				$("#session").val(data);
 				$("#login_id").css("display","none");
 				$("#login_pw").css("display","none");
 				$("#login_btn").css("display","none");
@@ -204,6 +206,7 @@ function logout(){
 	$("#logout_label").css("display","none");
 	$("#logout_btn").css("display","none");
 	$("#info").css("display","none");
+	$("#session").val("")
 }
 
 // 이메일

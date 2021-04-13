@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+        #content_modal, #insert_modal {
+          display: none;
+          position:absolute;
+          width:100%;
+          height:100%;
+          z-index:9999;
+          top: 100px;
+        }
+        
+        #content_modal h2 {
+          margin:0;
+        }
+        #content_modal button , #insert_modal button{
+          display:inline-block;
+          width:100px;
+          margin-left:calc(100% - 100px - 10px);
+        }
+        
+        #content_modal .modal_content ,#insert_modal .modal_content{
+          width:500px;
+          margin:100px auto;
+          padding:20px 10px;
+          background:#fff;
+          border:2px solid #666;
+        }
+        
+        #content_modal .modal_layer, #insert_modal .modal_layer{
+          position:fixed;
+          top:0;
+          left:0;
+          width:100%;
+          height:100%;
+          background:rgba(0, 0, 0, 0.5);
+          z-index:-1;
+    	} 
+    	
+    	  
+	</style>
+<link rel="stylesheet" type="text/css" href="css_folder/header.css">
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src=javascript_folder/header.js></script>
+<script type="text/javascript">
+var start = 1
+var end = 10
+var search_type="noserch";
+var result="noserch";
+// json 길이 Object.keys(객체명).length
+$(function (){
+	table_add()
+	qalist_add(0,"noserch","noserch")
+	$("#main_body").append("<input id='add' type='button' value='더보기' onclick='qalist_add(10)' style='margin-top:20px; width: 200px; height: 30px;'>")
+})
+
+function qalist_add(add){
+	
+	start+=add
+	end+=add
+	result=$("#search_text").val()
+	if(search_type=="noserch")
+		data={start:start,end:end}
+	else{
+		if(search_type=="title")
+			data={start:start,end:end,title:result,type:search_type}
+		else
+			data={start:start,end:end,content:result,type:search_type}
+	}
+	$.ajax({
+		url : "qalistall",
+        type : "POST",
+        dataType : "json",
+        data : data,
+        success : function(data) {
+        	console.log(data)
+        	for(i=0;i<Object.keys(data).length;i++){
+        		b="<tr style='height: 40px; border-bottom: 1px solid black;'>";
+        		b+="<td style='padding-left: 10px; width: 280px; overflow: hidden;'>"+data[i]["title"]+"</td>";
+        		b+="<td style='padding-left: 30px; width: 550px; overflow: hidden; cursor: pointer;' onclick='qaopen(\""+data[i]["userid"]+"\",\""+data[i]["content"]+"\",\""+data[i]["title"]+"\")'>"+data[i]["content"]+"</td>";
+        		b+="<td style='padding-left: 30px; width: 170px;'>"+data[i]["day"]+"</td></tr>";
+        		$("#question_main_table").append(b)
+        	}
+        },
+        error : function() {
+        	
+		}
+	});
+}
+function qaopen(content,title){
+	$("#content_modal_content").text(content);
+	$("#content_modal_top").text("제목 : "+title);
+	document.getElementById("content_modal").style.display="block";
+}
+function qssearch(){
+	$("#question_main_table").remove();
+	$("#add").remove();
+	table_add()
+	start=1
+	end=10
+	if($("#search_type").val()=="제목")
+		search_type="title";
+	else
+		search_type="content"
+	qalist_add(0);
+	$("#main_body").append("<input id='add' type='button' value='더보기' onclick='qalist_add(10)' style='margin-top:20px; width: 200px; height: 30px;'>")
+}
+function table_add(){
+	a="<table id='question_main_table' style='width: 1000px; border-collapse : collapse; table-layout: fixed; '>";
+	a+="<tr style='height: 40px; border-bottom: 3px solid black;'>";
+	a+="<td style='width: 200px; padding-left: 10px;'>제목</td>";
+	a+="<td style='width: 550px; padding-left: 30px;'>내용</td>";
+	a+="<td style='width: 170px; padding-left: 30px;'>날짜 <input type='button' value='글쓰기' style='margin-left: 75px;' onclick='question_add()'></td>";
+	a+="</tr>";
+	a+="</table>";
+	$("#main_body").append(a);
+}
+function question_add(){
+	var uid = $("#session").val();
+	console.log(uid)
+	if(uid==""){ 
+		alert("로그인이 필요 합니다.")
+    }
+    else{
+    	document.getElementById("insert_modal").style.display="block";
+    }
+}
+</script>
+</head>
+<body>
+	<div align="center" id="header">
+	</div>
+	
+	<div align="center" style="margin-top: 20px;" id="main_body">
+	    <select style="height: 30px;" id="search_type">
+		        <option>제목</option>
+		        <option>내용</option>
+	    </select>
+    	<input type="text" style="width:200px; height: 25px;" id="search_text">
+    	<input type="button" style="height: 30px; width:70px; margin-left: 10px;" value="확인" onclick="qssearch()">
+	</div>
+	<div id="content_modal">
+		<div class="modal_content">
+	        <h2 id="content_modal_top"></h2>
+	        <textarea id="content_modal_content" style="width: 500px; height: 300px; resize: none; font-size: 20px;" readonly="readonly"></textarea>
+	        <button type="button" id="content_modal_close_btn">창 닫기</button>
+	    </div>
+    	<div class="modal_layer"></div>
+	</div>
+	<div id="insert_modal">
+		<div class="modal_content">
+			<form action="question_insert" method="post">
+		        <input type="text" id="title" name="title" style="height: 25px;" placeholder="제목">
+		        <textarea id="content" name="content" style="width: 500px; height: 300px; resize: none; font-size: 20px;" placeholder="내용"></textarea>
+		        <input type="submit" id="insert_modal_insert_btn" value="확인">
+	        </form>
+	        <button type="button" id="insert_modal_close_btn">창 닫기</button>
+	    </div>
+    	<div class="modal_layer"></div>
+	</div>
+	<script>
+	    document.getElementById("content_modal_close_btn").onclick = function() {
+	        document.getElementById("content_modal").style.display="none";
+	    }   
+	    document.getElementById("insert_modal_close_btn").onclick = function() {
+	        document.getElementById("insert_modal").style.display="none";
+	    }  
+	</script>
+	
+	
+	<div id="user_modal">
+	</div>
+</body>
+</html>
