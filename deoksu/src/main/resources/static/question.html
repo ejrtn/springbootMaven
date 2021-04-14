@@ -78,9 +78,13 @@ function qalist_add(add){
         success : function(data) {
         	console.log(data)
         	for(i=0;i<Object.keys(data).length;i++){
+        		bno=data[i]["bno"];
+        		title=data[i]["title"];
+        		content=data[i]["content"];
+        		userid=data[i]["userid"];
         		b="<tr style='height: 40px; border-bottom: 1px solid black;'>";
         		b+="<td style='padding-left: 10px; width: 280px; overflow: hidden;'>"+data[i]["title"]+"</td>";
-        		b+="<td style='padding-left: 30px; width: 550px; overflow: hidden; cursor: pointer;' onclick='qaopen(\""+data[i]["userid"]+"\",\""+data[i]["content"]+"\",\""+data[i]["title"]+"\")'>"+data[i]["content"]+"</td>";
+        		b+="<td style='padding-left: 30px; width: 550px; overflow: hidden; cursor: pointer;' onclick='qaopen(\""+bno+"\",\""+title+"\",\""+content+"\",\""+userid+"\")'>"+data[i]["content"]+"</td>";
         		b+="<td style='padding-left: 30px; width: 170px;'>"+data[i]["day"]+"</td></tr>";
         		$("#question_main_table").append(b)
         	}
@@ -90,9 +94,16 @@ function qalist_add(add){
 		}
 	});
 }
-function qaopen(content,title){
+function qaopen(bno,title,content,userid){
+	console.log(userid)
+	console.log($("#session").val())
+	if($("#session").val()==userid){
+		$("#question_update_btn").css("display","block");
+	}
 	$("#content_modal_content").text(content);
 	$("#content_modal_top").text("제목 : "+title);
+	$("#content_modal_title").val(title);
+	$("#question_update_bno").val(bno);
 	document.getElementById("content_modal").style.display="block";
 }
 function qssearch(){
@@ -128,6 +139,17 @@ function question_add(){
     	document.getElementById("insert_modal").style.display="block";
     }
 }
+function question_update(a){
+	if(a=="no"){
+		$("#content_modal_title").css("display","block");
+		$("#content_modal_top").css("display","none");
+		$("#question_update_btn").css("display","none");
+		$("#content_modal_content").removeAttr("readonly");
+		$("#insert_modal_insert_btn").css("display","block")
+	}else {
+		$("#question_update").submit();
+	}
+}
 </script>
 </head>
 <body>
@@ -144,8 +166,15 @@ function question_add(){
 	</div>
 	<div id="content_modal">
 		<div class="modal_content">
-	        <h2 id="content_modal_top"></h2>
-	        <textarea id="content_modal_content" style="width: 500px; height: 300px; resize: none; font-size: 20px;" readonly="readonly"></textarea>
+			<form action="question_update" method="post" id="question_update">
+				<input type="hidden" name="bno" id="question_update_bno">
+				<h2 id="content_modal_top" style="display: block"></h2>
+		        <input type="text" id="content_modal_title" name="title" style="height: 25px; display: none">
+		        <textarea id="content_modal_content" name="content" style="width: 500px; height: 300px; resize: none; font-size: 20px;" readonly="readonly"></textarea>
+		        <input type="submit" style="display: none;">
+	        </form>
+	        <button type="button" id="insert_modal_insert_btn" onclick="question_update('ok')" value="확인" style="display: none;" onclick="">확인</button>
+	        <button type="button" onclick="question_update('no')" id="question_update_btn" style="display: none;">수정</button>
 	        <button type="button" id="content_modal_close_btn">창 닫기</button>
 	    </div>
     	<div class="modal_layer"></div>

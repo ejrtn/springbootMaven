@@ -3,7 +3,6 @@ package com.example.demo.controller;
 
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,6 +45,15 @@ public class QuestionController {
 		dto.setDay(currentDate);
 		dto.setUserid(String.valueOf(session.getAttribute("id")));
 		service.insert(dto);
+		return "redirect:question";
+	}
+	
+	@RequestMapping("question_update")
+	public String question_update(QuestionDto dto) {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
+		String currentDate = dateFormat.format(new Date());
+		dto.setDay(currentDate);
+		service.update(dto);
 		return "redirect:question";
 	}
 }

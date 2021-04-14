@@ -30,4 +30,7 @@ public class QuestionService {
 	public void insert(QuestionDto dto) {
 		dao.insert(dto);
 	}
+	public void update(QuestionDto dto) {
+		dao.update(dto);
+	}
 }

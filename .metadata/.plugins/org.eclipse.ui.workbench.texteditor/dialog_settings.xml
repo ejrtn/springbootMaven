@@ -6,23 +6,23 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="getUserInfo"/>
+		<item key="selection" value="question_update"/>
 		<list key="findhistory">
-			<item value="getUserInfo"/>
-			<item value="keycheck"/>
-			<item value="key_result"/>
-			<item value="email()"/>
-			<item value="email"/>
-			<item value="info_change"/>
-			<item value="infoclick"/>
-			<item value="modal_idpw"/>
+			<item value="question_update"/>
+			<item value="question_update_btn"/>
+			<item value="logout"/>
 			<item value="login"/>
-			<item value="&#x09;&#x09;"/>
-			<item value="        "/>
-			<item value="          "/>
-			<item value="m_number"/>
-			<item value="console"/>
-			<item value="+"/>
+			<item value="search_type"/>
+			<item value="console.log"/>
+			<item value="arr"/>
+			<item value="Welcome_Sudoku"/>
+			<item value="table_ch"/>
+			<item value="Allreset"/>
+			<item value="Initial_value"/>
+			<item value="number"/>
+			<item value="close"/>
+			<item value="modal"/>
+			<item value="modal_close"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>
@@ -31,8 +31,8 @@
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">
-		<item key="DIALOG_X_ORIGIN" value="941"/>
-		<item key="DIALOG_Y_ORIGIN" value="202"/>
+		<item key="DIALOG_X_ORIGIN" value="1109"/>
+		<item key="DIALOG_Y_ORIGIN" value="251"/>
 		<item key="DIALOG_WIDTH" value="288"/>
 		<item key="DIALOG_HEIGHT" value="391"/>
 		<item key="DIALOG_FONT_NAME" value="1|맑은 고딕|9.0|0|WINDOWS|1|-12|0|0|0|400|0|0|0|1|0|0|0|0|맑은 고딕"/>
