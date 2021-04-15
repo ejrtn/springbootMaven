@@ -25,7 +25,6 @@ public class QuestionDao {
 		sqlSessionTemplate.insert(MAPPER_NM+".insert",dto);
 	}
 	public void update(QuestionDto dto) {
-		System.out.println(dto.getBno());
 		sqlSessionTemplate.update(MAPPER_NM+".update",dto);
 	}
 	

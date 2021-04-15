@@ -76,7 +76,7 @@ function qalist_add(add){
         dataType : "json",
         data : data,
         success : function(data) {
-        	console.log(data)
+//         	console.log(data)
         	for(i=0;i<Object.keys(data).length;i++){
         		bno=data[i]["bno"];
         		title=data[i]["title"];
@@ -94,9 +94,11 @@ function qalist_add(add){
 		}
 	});
 }
+
+// qa 내용 보기
 function qaopen(bno,title,content,userid){
-	console.log(userid)
-	console.log($("#session").val())
+// 	console.log(userid)
+// 	console.log($("#session").val())
 	if($("#session").val()==userid){
 		$("#question_update_btn").css("display","block");
 	}
@@ -106,6 +108,8 @@ function qaopen(bno,title,content,userid){
 	$("#question_update_bno").val(bno);
 	document.getElementById("content_modal").style.display="block";
 }
+
+// 검색
 function qssearch(){
 	$("#question_main_table").remove();
 	$("#add").remove();
@@ -119,6 +123,8 @@ function qssearch(){
 	qalist_add(0);
 	$("#main_body").append("<input id='add' type='button' value='더보기' onclick='qalist_add(10)' style='margin-top:20px; width: 200px; height: 30px;'>")
 }
+
+// 테이블 추가
 function table_add(){
 	a="<table id='question_main_table' style='width: 1000px; border-collapse : collapse; table-layout: fixed; '>";
 	a+="<tr style='height: 40px; border-bottom: 3px solid black;'>";
@@ -129,6 +135,8 @@ function table_add(){
 	a+="</table>";
 	$("#main_body").append(a);
 }
+
+// QA 게시글 추가
 function question_add(){
 	var uid = $("#session").val();
 	console.log(uid)
@@ -139,6 +147,8 @@ function question_add(){
     	document.getElementById("insert_modal").style.display="block";
     }
 }
+
+// QA글 수정
 function question_update(a){
 	if(a=="no"){
 		$("#content_modal_title").css("display","block");
