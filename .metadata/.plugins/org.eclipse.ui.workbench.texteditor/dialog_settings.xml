@@ -6,8 +6,10 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="question_update"/>
+		<item key="selection" value="sum"/>
 		<list key="findhistory">
+			<item value="sum"/>
+			<item value="top"/>
 			<item value="question_update"/>
 			<item value="question_update_btn"/>
 			<item value="logout"/>
@@ -21,8 +23,6 @@
 			<item value="Initial_value"/>
 			<item value="number"/>
 			<item value="close"/>
-			<item value="modal"/>
-			<item value="modal_close"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>
