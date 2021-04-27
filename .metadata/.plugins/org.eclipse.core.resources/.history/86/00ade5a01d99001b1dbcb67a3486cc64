@@ -1,8 +1,0 @@
-spring:
-  mvc:
-    view:
-      suffix: .html
-
-custom:
-  path:
-    upload-images: '/var/lib/jenkins/area_deploy/jiniworld/upload-images/'

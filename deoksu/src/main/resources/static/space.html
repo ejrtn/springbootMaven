@@ -78,8 +78,8 @@ $(function (){
 //	ctx.lineTo(c[34], c[35]);
 
 function init(){
-	c = [400, 560, 450, 560, 385, 590, 435, 590, 385, 620, 435, 620, 400, 560, 385, 590, 450, 560, 
-		435, 590, 450, 590, 435, 620, 385, 590, 385, 620, 435, 590, 435, 620, 450, 560, 450, 590]
+	c = [400, 560, 450, 560, 385, 590, 435, 590, 385, 610, 435, 610, 400, 560, 385, 590, 450, 560, 
+		435, 590, 450, 580, 435, 610, 385, 590, 385, 610, 435, 590, 435, 610, 450, 560, 450, 580]
 	$("#canvas_div").append("<canvas id='canvas' width='900' height='900' style='border: 5px solid black; margin: 20px 0px 0px 20px;'></canvas>")
 	canvas = document.getElementById("canvas");
 	ctx = canvas.getContext("2d");
@@ -254,27 +254,27 @@ function over(next){
 		for(i=0;i<36;i++){
 			if(arr[next]=='right'){
 				if(!(i==8 || i==20 || i==20 || i==32)){
-					ctx.moveTo(c[i], c[i+1]-=30);
-					ctx.lineTo(c[i+2], c[i+3]-=30);
+					ctx.moveTo(c[i], c[i+1]-=20);
+					ctx.lineTo(c[i+2], c[i+3]-=20);
 				}else{
-					c[i+1]-=30
-					c[i+3]-=30
+					c[i+1]-=20
+					c[i+3]-=20
 				}
 			}else if(arr[next]=='over'){
 				if(!(i==8 || i==20 || i==12 || i==0)){
-					ctx.moveTo(c[i], c[i+1]-=30);
-					ctx.lineTo(c[i+2], c[i+3]-=30);
+					ctx.moveTo(c[i], c[i+1]-=20);
+					ctx.lineTo(c[i+2], c[i+3]-=20);
 				}else{
-					c[i+1]-=30
-					c[i+3]-=30
+					c[i+1]-=20
+					c[i+3]-=20
 				}
 			}else{
 				if(!(i==8 || i==20)){
-					ctx.moveTo(c[i], c[i+1]-=30);
-					ctx.lineTo(c[i+2], c[i+3]-=30);
+					ctx.moveTo(c[i], c[i+1]-=20);
+					ctx.lineTo(c[i+2], c[i+3]-=20);
 				}else{
-					c[i+1]-=30
-					c[i+3]-=30
+					c[i+1]-=20
+					c[i+3]-=20
 				}
 			}
 			i+=3
@@ -282,11 +282,11 @@ function over(next){
 	}else{
 		for(i=0;i<36;i++){
 			if(!(i==8 || i==20)){
-				ctx.moveTo(c[i], c[i+1]-=30);
-				ctx.lineTo(c[i+2], c[i+3]-=30);
+				ctx.moveTo(c[i], c[i+1]-=20);
+				ctx.lineTo(c[i+2], c[i+3]-=20);
 			}else{
-				c[i+1]-=30
-				c[i+3]-=30
+				c[i+1]-=20
+				c[i+3]-=20
 			}
 			i+=3
 		}

@@ -1,9 +1,0 @@
-spring:
-  mvc:
-    view:
-      suffix: .html
-
-custom:
-  path:
-    upload-images: 'D:\WorkspaceMaven\sts-4.10.0.RELEASE-workspace\deoksu\src\main\resources\static\images\img'
-

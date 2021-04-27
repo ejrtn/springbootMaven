@@ -6,8 +6,9 @@
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="sum"/>
+		<item key="selection" value="http://code.jquery.com/jquery-latest.min.js"/>
 		<list key="findhistory">
+			<item value="http://code.jquery.com/jquery-latest.min.js"/>
 			<item value="sum"/>
 			<item value="top"/>
 			<item value="question_update"/>
@@ -22,7 +23,6 @@
 			<item value="Allreset"/>
 			<item value="Initial_value"/>
 			<item value="number"/>
-			<item value="close"/>
 		</list>
 		<list key="replacehistory">
 			<item value=""/>

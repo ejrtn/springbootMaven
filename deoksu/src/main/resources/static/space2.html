@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script type="text/javascript">
+var arr0=[];
+var arr1=[];
+var ran;
+var c=[450,10,420,30,450,10,480,30,420,30,450,50,480,30,450,50, 420,30,420,70,450,50,450,90,480,30,480,70, 420,70,450,90,480,70,450,90];
+var canvas;
+var ctx;
+
+$(function (){
+	init();
+	ctx.stroke();
+})
+
+
+function init(){
+// 	$("#canvas_div").append("<canvas id='canvas' width='900' height='900' style='border: 5px solid black; margin: 20px 0px 0px 20px;'></canvas>")
+	canvas = document.getElementById("canvas");
+	ctx = canvas.getContext("2d");
+	ctx.beginPath();
+	square();
+	for(i=0;i<c.length;i++){
+		if(i!=4){
+			ctx.moveTo(c[i]-30, c[i+1]+60);
+			ctx.lineTo(c[i+2]-30, c[i+3]+60);
+		}
+		i+=3;
+	}
+	for(i=0;i<c.length;i++){
+		if(i!=0 && i!=16){
+			ctx.moveTo(c[i]+30, c[i+1]+60);
+			ctx.lineTo(c[i+2]+30, c[i+3]+60);
+		}
+		i+=3;
+	}
+	
+}
+
+// 사각형
+function square(){
+	for(i=0;i<c.length;i++){
+		ctx.moveTo(c[i], c[i+1]);
+		ctx.lineTo(c[i+2], c[i+3]);
+		i+=3;
+	}
+}
+
+</script>
+</head>
+<body>
+	<div id="canvas_div">
+		<canvas id='canvas' width='900' height='900' style='border: 5px solid black; margin: 20px 0px 0px 20px;'></canvas>
+	</div>
+</body>
+</html>

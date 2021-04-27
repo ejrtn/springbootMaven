@@ -2,6 +2,8 @@
 <section name="Workbench">
 	<list key="installedFeatures">
 		<item value="com.ianbrandt.tools.m2e.mdp.feature:0.0.4.201409291703"/>
+		<item value="de.jcup.egradle.eclipse.feature.core:2.7.0"/>
+		<item value="de.jcup.egradle.eclipse.feature.editor:2.7.0"/>
 		<item value="net.mihai-nita.ansicon:1.4.4.202102080044"/>
 		<item value="org.aspectj:1.9.6.202012111622"/>
 		<item value="org.eclipse.ajdt:2.2.4.202012111622"/>
